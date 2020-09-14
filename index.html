@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Vue ToDo List</title>
+	<link href="main-styles.css" rel="stylesheet" type="text/css" />
+  <link href="svg-styles.css" rel="stylesheet" type="text/css" />
+  <link href="component-styles.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans|Lato" rel="stylesheet">
+    <style>
+
+.item .check-circle-svg svg {
+  stroke: #37b24d;
+  transition: stroke 0.2s ease-in-out;
+}
+
+/* make plus and trashcan svg go to right */
+.trash-svg, .plus-circle-svg {
+  margin-left: auto;
+  padding: 0 10px;
+}
+.tab-button {
+  padding: 6px 10px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  background: #f0f0f0;
+  margin-bottom: -1px;
+  margin-right: -1px;
+}
+.tab-button:hover {
+  background: #e0e0e0;
+}
+.tab-button.active {
+  background: #e0e0e0;
+}
+.tab {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+
+
+
+
+    </style>
+
+
+
+
+    
+
+
+</head>
+
+<body>
+  
+    <div id="dynamic-component-demo" class="demo">
+        <button v-for="tab in tabs" v-bind:key="tab" v-bind:class="['tab-button', { active: currentTab === tab }]" v-on:click="currentTab = tab">{{ tab }}</button>
+      
+        <component v-bind:is="currentTabComponent" class="tab"></component>
+
+
+
+        <div v-if= "currentTabComponent ==='tab-home' ">
+        <img src="https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg">
+        </div>
+
+        <div v-if= "currentTabComponent ==='tab-services' ">
+
+
+
+          <div >
+        <button v-on:click="contador += 300">Add 300</button>
+        <button v-on:click="contador -= 300">Elem 300</button>
+        <p>
+        </p>
+        <button v-on:click="contador += 400">Add 400</button>
+        <button v-on:click="contador -= 400">Elem 400</button>
+        <p>
+        </p><button v-on:click="contador += 250">Add 250</button>
+        <button v-on:click="contador -= 250">Elem 250</button>
+        <p>
+        </p><button v-on:click="contador += 220">Add 250</button>
+        <button v-on:click="contador -= 220">Elem 250</button>
+        <p>
+        </p>
+        <p>Total: {{ contador }} .</p>  
+        
+
+        </div>
+      </div>
+
+
+      
+
+
+
+    </div>
+
+
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="components.js"></script>
+</body>
+</html>
+
+<script>
+ var cont = new Vue({
+        el: '#contador1',
+        data: {
+            contador: 0
+        }
+    })
+
+Vue.component("tab-home", {
+  template: "<div>Home component</div>"
+});
+Vue.component("tab-projects", {
+  template: "<div>Projects component</div>"
+});
+Vue.component("tab-services", {
+  template: "<div>Services component</div>"
+});
+
+new Vue({
+  el: "#dynamic-component-demo",
+  data: {
+    currentTab: "Home",
+    tabs: ["HOME", "PROJECTS", "SERVICES"],
+    contador: 0
+  },
+  computed: {
+    currentTabComponent: function() {
+      return "tab-" + this.currentTab.toLowerCase();
+    }
+  }
+});
+
+</script>
